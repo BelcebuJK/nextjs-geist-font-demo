@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Velcexus</string>
+    <string name="title_activity_main">Velcexus</string>
+    <string name="package_name">com.velcexus.app</string>
+    <string name="custom_url_scheme">com.velcexus.app</string>
+</resources>
