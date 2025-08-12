@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "56e32467-dda2-40c1-b410-7bf7cdd7439f"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.velcexus.myapp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "owner": "velcexus",
+    "slug": "iddi"
+  }
+}
