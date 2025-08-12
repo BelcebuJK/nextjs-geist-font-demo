@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generador de Recibos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      margin: 2rem;
+      color: #111;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #1e40af;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    input[type="text"],
+    input[type="date"],
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .items {
+      margin-top: 1rem;
+    }
+    .item {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      align-items: center;
+    }
+    .item input[type="text"] {
+      flex: 2;
+    }
+    .item input[type="number"] {
+      flex: 1;
+    }
+    .item button {
+      background: #dc2626;
+      border: none;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .item button:hover {
+      background: #b91c1c;
+    }
+    button.add-item {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+    button.add-item:hover {
+      background: #1e40af;
+    }
+    .total {
+      margin-top: 1rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      text-align: right;
+      color: #16a34a;
+    }
+    .thank-you {
+      margin-top: 2rem;
+      text-align: center;
+      color: #6b7280;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Generador de Recibos</h1>
+
+    <label for="clientName">Nombre del Cliente</label>
+    <input type="text" id="clientName" placeholder="Ingrese el nombre del cliente" />
+
+    <label for="date">Fecha</label>
+    <input type="date" id="date" />
+
+    <div class="items" id="itemsContainer">
+      <div class="item">
+        <input type="text" placeholder="Descripción" class="description" />
+        <input type="number" min="1" value="1" class="quantity" />
+        <input type="number" min="0" step="0.01" value="0" class="price" />
+        <button type="button" class="removeItemBtn" onclick="removeItem(this)">×</button>
+      </div>
+    </div>
+
+    <button type="button" class="add-item" onclick="addItem()">Agregar Item</button>
+
+    <div class="total" id="totalAmount">Total: $0.00</div>
+
+    <div class="thank-you">Gracias por su compra.</div>
+  </div>
+
+  <script>
+    function addItem() {
+      const container = document.getElementById('itemsContainer');
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'item';
+      itemDiv.innerHTML = `
+        <input type="text" placeholder="Descripción" class="description" />
+        <input type="number" min="1" value="1" class="quantity" />
+        <input type="number" min="0" step="0.01" value="0" class="price" />
+        <button type="button" class="removeItemBtn" onclick="removeItem(this)">×</button>
+      `;
+      container.appendChild(itemDiv);
+      updateTotal();
+    }
+
+    function removeItem(button) {
+      const itemDiv = button.parentElement;
+      itemDiv.remove();
+      updateTotal();
+    }
+
+    function updateTotal() {
+      const items = document.querySelectorAll('.item');
+      let total = 0;
+      items.forEach(item => {
+        const quantity = parseFloat(item.querySelector('.quantity').value) || 0;
+        const price = parseFloat(item.querySelector('.price').value) || 0;
+        total += quantity * price;
+      });
+      document.getElementById('totalAmount').textContent = 'Total: $' + total.toFixed(2);
+    }
+
+    document.getElementById('itemsContainer').addEventListener('input', updateTotal);
+  </script>
+</body>
+</html>
