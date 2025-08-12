@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Azure MCP Server - Overview and Setup Guide</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background-color: #f9f9f9;
+      color: #111;
+    }
+    h1, h2, h3 {
+      color: #0078d4;
+    }
+    pre {
+      background-color: #eaeaea;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    code {
+      font-family: monospace;
+      background-color: #eaeaea;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    ul {
+      margin-left: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Azure MCP Server - Overview and Setup Guide</h1>
+
+  <section>
+    <h2>What is Azure MCP Server?</h2>
+    <p>
+      The Azure MCP Server implements the Model Context Protocol (MCP) to connect AI agents with Azure services seamlessly.
+      It can be used alone or with GitHub Copilot for Azure extension in VS Code.
+    </p>
+  </section>
+
+  <section>
+    <h2>Installation Options</h2>
+    <h3>VS Code Extension (Recommended)</h3>
+    <ol>
+      <li>Install VS Code (Stable or Insiders)</li>
+      <li>Install GitHub Copilot and GitHub Copilot Chat extensions</li>
+      <li>Install Azure MCP Server extension</li>
+      <li>Run <code>MCP: List Servers</code> and start Azure MCP Server</li>
+    </ol>
+    <h3>Manual Install via NPX</h3>
+    <pre><code>{
+  "servers": {
+    "Azure MCP Server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@azure/mcp@latest",
+        "server",
+        "start"
+      ]
+    }
+  }
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Configuration</h2>
+    <p>
+      Use <code>github.com/Azure/azure-mcp</code> as the server name in <code>bkacbox_mcp_settings.json</code>.
+    </p>
+    <p>
+      You can specify namespaces to load specific Azure services, e.g., <code>--namespace storage</code>, <code>--namespace keyvault</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Authentication</h2>
+    <p>
+      Azure MCP Server uses Azure Identity SDK for authentication. It supports multiple credential types including environment credentials, Azure CLI login, Visual Studio login, and interactive browser login.
+    </p>
+    <p>
+      For CI/CD pipelines, use service principal credentials via environment variables:
+    </p>
+    <pre><code>export AZURE_CLIENT_ID="your-client-id"
+export AZURE_CLIENT_SECRET="your-client-secret"
+export AZURE_TENANT_ID="your-tenant-id"</code></pre>
+  </section>
+
+  <section>
+    <h2>Common Issues and Troubleshooting</h2>
+    <ul>
+      <li>Console window may be empty due to standard I/O communication</li>
+      <li>VS Code may show a subset of tools if server is started with namespaces or modes</li>
+      <li>Authentication errors may occur due to RBAC permissions or network restrictions</li>
+      <li>Tool limit: VS Code Copilot has a 128-tool limit per request</li>
+    </ul>
+    <p>Refer to the official troubleshooting guide for detailed help.</p>
+  </section>
+
+  <section>
+    <h2>Demonstration</h2>
+    <p>
+      After installation, you can demonstrate the server's capabilities by using one of its tools, such as listing Azure Storage accounts or querying Azure SQL databases.
+    </p>
+  </section>
+
+  <section>
+    <h2>Additional Resources</h2>
+    <ul>
+      <li><a href="https://github.com/Azure/azure-mcp">Azure MCP GitHub Repository</a></li>
+      <li><a href="https://learn.microsoft.com/azure/developer/azure-mcp-server/">Azure MCP Server Documentation</a></li>
+      <li><a href="https://github.com/Azure/azure-mcp/blob/main/TROUBLESHOOTING.md">Troubleshooting Guide</a></li>
+      <li><a href="https://github.com/Azure/azure-mcp/blob/main/docs/Authentication.md">Authentication Guide</a></li>
+    </ul>
+  </section>
+</body>
+</html>
